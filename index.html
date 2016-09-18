@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cookle</title>
+
+<link rel="stylesheet" href="node_modules/jquery-mobile/dist/jquery.mobile.css">
+
+<link rel="stylesheet" href="css/mobile-normalize.css">
+<link rel='stylesheet prefetch'
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700'>
+<link rel='stylesheet prefetch'
+	href='http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="css/mobile-style.css">
+
+</head>
+<body>
+
+	<header>
+		<nav id="nav">
+			<ul class="nav">
+			  <li><a href="#hi"><i class="fa fa-bars"></i></a></li>
+				<li><a href="#hi">recipe</a></li>
+				<li><a href="#work">mypage</a></li>
+				<li><a href="#portfolio">login</a></li>
+				<li><a href="#contact">signup</a></li>
+			</ul>
+		</nav>
+	</header>
+
+<!-- panel start -->
+    <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                <li><a href="#panel-responsive-page2">Accordion</a></li>
+             
+        </ul>
+    </div><!-- /panel -->
+<!-- panel end --> 
+
+	<main>
+	<section id="hi" style="height: 450px;">
+		<div class="wrapper">
+			<img src="img/slide-restaurant-2.jpg">
+			<h1>
+				welcome to <strong>cookle</strong>.
+			</h1>
+			<a href="#work" class="button">사용방법 배우기</a>
+		</div>
+	</section>
+
+	<section id="work">
+		<div class="wrapper">
+			<h2>cookle이란</h2>
+			<p>수 많은 recipe들을 공유, 평가, 소통이라는 keyword로 묶어 IT기술로 정보화하고, 그 정보화한 데이터를 분석해서 더 좋은 음식을 찾는 일련의 문제를 공유하는 서비스를 제공합니다.</p>
+
+			<ul class="skills">
+				<li><i class="fa fa-share-alt"></i>
+					<h3>공유</h3>
+					<p>관심도가 높은 레시피를 실시간 제공합니다.</p></li>
+				<li><i class="fa fa-bar-chart"></i>
+					<h3>평가</h3>
+					<p>자신이 필요한 레시피를 스크랩하여 볼 수 있습니다.</p></li>
+				<li><i class="fa fa-comments-o"></i>
+					<h3>소통</h3>
+					<p>recipe 작성자와 소통이 가능합니다.</p></li>
+			</ul>
+
+		</div>
+	</section>
+	
+	
+	
+	<section id="contact">
+		<div class="wrapper">
+			<footer>
+				<p class="credits">© cookle</p>
+			</footer>
+		</div>
+	</section>
+	</main>
+
+
+  
+<script id="mainTemp" type="text/x-handlebars-template">
+
+  <div class="rcp-mypage-section">               
+<h4 class="rcp-main-subscribe-userName"></h4>
+{{#each data}}
+
+<div class="isotope-grid" id="grid-2">
+          <div class="entry col-xs-12 col-sm-4 col-md-3 filter-food filter-pudding">
+            <div class="entry-inner">
+              {{#each representImages}}  
+              <input type="hidden" class="forBackgroundRepresentImg" value="{{this}}">
+              {{/each}}
+              <p class="rcp-count-images">{{countImage representImages}}</p>
+              <div class="rcp-count-images-bg">
+              </div>
+              <div class="entry-media" name="recipe-subscribe-image" style="background-image:url(img/representImg/{{representImages representImages}}">
+               
+                <div class="entry-action">
+                  <div class="entry-action-inner">                  
+                  </div>
+                </div>
+              </div>
+              <!-- ./ entry-media -->
+              <div class="content-wrapper">
+                <h3 class="entry-name"><a href="#">
+                <input type="hidden" name="recipeNo" value="{{recipeNo}}">
+                <p class="detail">{{recipeName}}</p></a></h3>                
+                <a href="mypage.html?{{user.email}}">
+                <input type="hidden" class="rcp-hidden-email" value="{{user.email}}">
+                <p class="entry-author rcp-userName">{{user.userName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{recipeDate}}</p>
+                </a>
+                <div class="entry-meta">
+                  <div class="foo-wrapper">
+                    <span>
+                    <a href="#" class="rcp-like"><div class="glyphicon glyphicon-heart-empty rcp-i-tag-margin-right-top"></div>
+                    <span>좋아요 {{countLike}}</span></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                    <div class="glyphicon glyphicon glyphicon-time rcp-i-tag-margin-right-top"></div>
+                    <span class="meta-time">{{cookTime}}분 소요</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <span>
+                     <a href="#" class="rcp-scrap"><div class="glyphicon glyphicon-paperclip rcp-i-tag-margin-right-top"></div>
+                    <span>스크랩 {{countScrap}}</span></a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- ./ entry-content -->
+            </div>
+            <!-- /.entry-inner -->
+          </div>
+        
+          </div>
+
+{{/each}}
+</div>
+
+</script>
+<script src="js/mainListAjax.js"></script>
+<script src="node_modules/jquery-mobile/dist/jquery.mobile.js"></script>
+
+</body>
+</html>

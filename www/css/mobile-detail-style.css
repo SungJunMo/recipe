@@ -1,0 +1,29 @@
+#jb-container {
+  margin: 0px auto;
+  padding: 20px;
+  border: 1px solid #bcbcbc;
+}
+#jb-header {
+  margin-bottom: 20px;
+  border: 1px solid #bcbcbc;
+}
+.jb-content {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #bcbcbc;
+}
+#jb-footer {
+  clear: both;
+  padding: 20px;
+  border: 1px solid #bcbcbc;
+}
+
+.detail-css{
+	border:1px solid black;
+	text-align: center;
+	color: black;
+}
+
+.header-display{
+	display: block;
+}
