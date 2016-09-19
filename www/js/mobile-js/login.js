@@ -129,7 +129,7 @@ function login(event) {
 			 localStorage.setItem('grade', result.data.grade);
 			 
 			
-			if (result.status == 'failure') {
+			if (result.status == 'failure') { 
 
 				swal('잘못입력하셨습니다.','아이디 또는 비밀번호를 다시 확인하여 주세요.',"error");
 
