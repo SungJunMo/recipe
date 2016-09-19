@@ -1,8 +1,7 @@
 $(function() {
 	
 	$('#content').load('main.html');
-	
-	 
+	$('#Panel').load('logout-panel.html'); 
 	
 /*	 $(document).on('load','#content',function(){
 		    document.getElementById('mobile-detail-style-css').disabled = false;
@@ -11,9 +10,10 @@ $(function() {
 	 
 	
 	$(document).on('click','#login-panel',function(){
-		$('#content').load('login.html');
 		document.getElementById('mobile-detail-style').disabled = true;
 	    document.getElementById('mobile-style').disabled = true;
+		$('#content').load('login.html');
+		
 	});
 	
 /*	function loadMonthRank() {

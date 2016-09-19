@@ -1,11 +1,14 @@
+var localhost = 'http://127.0.0.1:8080';
+
 window.onload = function () {
 	
 
-	/*로그아웃 버튼*/
+	
+/*	로그아웃 버튼
 	$(document).on('click', '#logoutBtn', function(){
 		logout(event);
 		$(location).attr('href','/');
-	});
+	});*/
 	
 
 	$(document).on('click', '#userLogin', function(){
@@ -16,12 +19,14 @@ window.onload = function () {
 			swal('패스워드를 입력해주세요.');		
 			return;
 		}	
+		/*swal($('#userEmail').val());
+		swal($('#userPassword').val());*/
 		login(event);
 	});
 };
 
 
-function getUserInfo(){
+/*function getUserInfo(){
 	var obj = loginCheck().responseJSON;
 	if(obj.status!='success'){
 		return;
@@ -57,7 +62,7 @@ function loginCheck() {
 		dataType : 'json',
         async: false
 	});
-}; /* end of jquery */
+};  end of jquery 
 
 
 //logout
@@ -81,14 +86,14 @@ function logout(event) {
 		error : function() {
 			swal('서버 요청 오류');
 		}
-	}); /* end of ajax */
-}; /* end of jquery */
+	});  end of ajax 
+};  end of jquery */
 
 function login(event) {
 	event.preventDefault();
 	
 	$.ajax({
-		url : '/user/login.json', 
+		url : localhost+'/user/login.json', 
 		method : 'post',
 		dataType : 'json',
 		data : {
@@ -96,6 +101,34 @@ function login(event) {
 			password : $('#userPassword').val()			
 		}, 
 		success : function(result) {
+			
+			 /*var userInfo = {
+				        userNo : result.data.userNo,
+				        userName : result.data.userName,
+				        email : result.data.email,
+				        image : result.data.image,
+				        intro : result.data.intro,
+				        role : result.data.role,
+				        joinDate : result.data.joinDate,
+				        recipeUrl : result.data.recipeUrl,
+				        recipeCount : result.data.recipeCount,
+				        subsCount : result.data.subsCount,
+				        grade : result.data.grade
+				    };*/
+			 
+			 localStorage.setItem('userNo', result.data.userNo);
+			 localStorage.setItem('userName', result.data.userName);
+			 localStorage.setItem('email', result.data.email);
+			 localStorage.setItem('image', result.data.image);
+			 localStorage.setItem('intro', result.data.intro);
+			 localStorage.setItem('role', result.data.role);
+			 localStorage.setItem('joinDate', result.data.joinDate);
+			 localStorage.setItem('recipeUrl', result.data.recipeUrl);
+			 localStorage.setItem('recipeCount', result.data.recipeCount);
+			 localStorage.setItem('subsCount', result.data.subsCount);
+			 localStorage.setItem('grade', result.data.grade);
+			 
+			
 			if (result.status == 'failure') {
 
 				swal('잘못입력하셨습니다.','아이디 또는 비밀번호를 다시 확인하여 주세요.',"error");
@@ -110,14 +143,14 @@ function login(event) {
 
 				return;
 			}else if(result.status == 'success'){
-				location.reload();
-				$('#login-pop-up-banner').bPopup().close();
+				$('#Panel').load('login-panel.html');
 			} else {
 				swal('잘못입력하셨습니다.','아이디 또는 비밀번호를 다시 확인하여 주세요.',"error");
 			}
-
+			
 		},
 		error : function() {
+			swal(result.status);
 			swal('서버 요청 오류');
 		}
 	}); /* end of ajax */
