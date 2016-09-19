@@ -10,11 +10,14 @@ $(function() {
 	 
 	
 	$(document).on('click','#login-panel',function(){
-		document.getElementById('mobile-detail-style').disabled = true;
 	    document.getElementById('mobile-style').disabled = true;
 		$('#content').load('login.html');
-		
 	});
+	
+	$(document).on('click','#detail-content',function(){
+		$('#content').load('login-main.html');
+	});
+	
 	
 /*	function loadMonthRank() {
 		var source = $('#cook-template').text();

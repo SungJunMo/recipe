@@ -1,16 +1,9 @@
-var localhost = 'http://127.0.0.1:8080';
+var localhost = 'http://192.168.0.23:8080';
 
 window.onload = function () {
 	
-
+	var userInfo = getUserInfo();
 	
-/*	로그아웃 버튼
-	$(document).on('click', '#logoutBtn', function(){
-		logout(event);
-		$(location).attr('href','/');
-	});*/
-	
-
 	$(document).on('click', '#userLogin', function(){
 		if($('#userEmail').val() == ''){
 			swal('이메일을 입력해주세요.');		
@@ -23,6 +16,21 @@ window.onload = function () {
 		swal($('#userPassword').val());*/
 		login(event);
 	});
+	
+	//로그아웃 버튼
+	$(document).on('click', '#logoutBtn', function(){
+		logout(event);
+		localStorage.clear();
+		$(location).attr('href','/');
+	});
+	
+	if(userInfo.userNo==null) {
+		$('#Panel').load('logout-panel.html'); 
+		
+	}else if (userInfo.userNo!=null) {
+		$('#Panel').load('login-panel.html');
+		$('#content').load('login-main.html');
+	};
 };
 
 
@@ -53,23 +61,14 @@ window.onload = function () {
 //	$('#topbarUserImg').html('<img id="loginIconAction2" class="rcp-barimg dropdown-trigger img-circle" src="img/profileImg/'+userInfo.image+'" />');
 	
 	return userInfo;
-}
-
-function loginCheck() {
-	return $.ajax({
-		url : '/user/loginCheck.json', 
-		method : 'get',
-		dataType : 'json',
-        async: false
-	});
-};  end of jquery 
+}*/
 
 
 //logout
 function logout(event) {
 	event.preventDefault();
 	$.ajax({
-		url : '/user/logout.json', 
+		url : localhost+'/user/logout.json', 
 		method : 'get',
 		dataType : 'json',
 		success : function(result) {
@@ -80,14 +79,14 @@ function logout(event) {
 			if(result.status == 'success'){
 				userInfo=null;
 			} else {
-				swal('서버 요청 오류');
+				swal('서버 요청 오류1');
 			}
 		},
 		error : function() {
-			swal('서버 요청 오류');
+			swal('서버 요청 오류2');
 		}
-	});  end of ajax 
-};  end of jquery */
+	});  //end of ajax 
+}; // end of jquery 
 
 function login(event) {
 	event.preventDefault();
@@ -101,20 +100,6 @@ function login(event) {
 			password : $('#userPassword').val()			
 		}, 
 		success : function(result) {
-			
-			 /*var userInfo = {
-				        userNo : result.data.userNo,
-				        userName : result.data.userName,
-				        email : result.data.email,
-				        image : result.data.image,
-				        intro : result.data.intro,
-				        role : result.data.role,
-				        joinDate : result.data.joinDate,
-				        recipeUrl : result.data.recipeUrl,
-				        recipeCount : result.data.recipeCount,
-				        subsCount : result.data.subsCount,
-				        grade : result.data.grade
-				    };*/
 			 
 			 localStorage.setItem('userNo', result.data.userNo);
 			 localStorage.setItem('userName', result.data.userName);
@@ -129,7 +114,7 @@ function login(event) {
 			 localStorage.setItem('grade', result.data.grade);
 			 
 			
-			if (result.status == 'failure') {
+			if (result.status == 'failure') { 
 
 				swal('잘못입력하셨습니다.','아이디 또는 비밀번호를 다시 확인하여 주세요.',"error");
 
@@ -147,7 +132,11 @@ function login(event) {
 			} else {
 				swal('잘못입력하셨습니다.','아이디 또는 비밀번호를 다시 확인하여 주세요.',"error");
 			}
-			
+			document.getElementById('mobile-style').disabled = false;
+			$('#content').load('login-main.html');
+			/*$(location).attr('href','http://192.168.0.23:3000');*/
+			/*$.mobile.changePage("http://192.168.0.23:3000/index.html", { transition: "slideup", changeHash: false });*/
+			location.reload();
 		},
 		error : function() {
 			swal(result.status);
@@ -155,3 +144,36 @@ function login(event) {
 		}
 	}); /* end of ajax */
 }; /* end of jquery */
+
+
+function getUserInfo(){
+	var obj = loginCheck().responseJSON;
+	if(obj.status!='success'){
+		return;
+	}
+	
+	var userInfo = {
+		userNo : obj.data.userNo,
+		userName : obj.data.userName,
+		email : obj.data.email,
+		image : obj.data.image,
+		intro : obj.data.intro,
+		role : obj.data.role,
+		joinDate : obj.data.joinDate,
+		recipeUrl : obj.data.recipeUrl,
+		recipeCount : obj.data.recipeCount,
+		subsCount : obj.data.subsCount
+	};
+	
+	return userInfo;
+}
+
+function loginCheck() {
+	return $.ajax({
+		url : localhost+'/user/loginCheck.json', 
+		method : 'get',
+		dataType : 'json',
+        async: false
+	});
+}; /* end of jquery */
+
